@@ -1,6 +1,7 @@
-#include <string>
+﻿#include <string>
 #include <iostream>
 #include <vector>
+#include <locale.h>
 
 using std::string;
 using std::cin;
@@ -37,13 +38,18 @@ private:
             cout<<"Трата: "<< spending << "\n";
             cout<<"Доход: "<< wage-spending << "\n";
         }
+        void setValues(int w, int s)
+        {
+            wage = w;
+            spending = s;
+        }
     };
     dohod intrmed={0,0};      //intermediary-посредник
 public:
-
     Family(string l="", string f="", string m="", int a=0, string sx="", string stat="");
     Family(string f, int a);
     Family(string l, string f, int a, string stat);
+    Family(string l, string f, int w, int s);
     void vvod();
     void vivod() const;
 };
@@ -60,14 +66,30 @@ Family::Family(string l, string f, string m, int a, string sx, string stat)
 Family::Family(string f, int a)
 {
     firstName=f;
+    lastName = "";
+    middleName = "";
     age=a;
+    sex = "";
+    status = "";
 }
 Family::Family(string l, string f, int a, string stat)
 {
     lastName=l;
     firstName=f;
+    middleName = "";
     age=a;
+    sex = "";
     status=stat;
+}
+Family::Family(string l, string f, int w, int s)
+{
+    lastName = l;
+    firstName = f;
+    middleName = "";
+    age = 0;
+    sex = "";
+    status = "";
+    intrmed.setValues(w, s);
 }
 void Family::vvod()
 {
@@ -143,19 +165,22 @@ void funcWithClass()
 }
 int main()
 {
+    setlocale(LC_ALL, "Russian");
     funcWithClass();
-    Family test("Ivan", 20);
+    Family test( "Ivanov", "Ivan", 10000, 9500);
 //    test.vvod(); cout<<"\nВведенные данные:\n";
     test.vivod(); cout<<"\n";
 
-    const Family constTest;
+    const Family constTest = {"Иванов", "Иван",20, "учащийся"};
     constTest.vivod();
+
+    system("Pause");
     return 0;
 }
 
 
 
 
-//Дальнейшая модификация класса семейных отношений состоит в переопределении (добавлении) методов,
-//не меняющих значения полей класса в константные. Объявите константные объекты данного класса
-//и испытайте действие константных и не константных методов. Оцените и объясните реакцию компилятора на подобные действия
+//Как уже говорилось, число конструкторов может быть произвольным.Расширьте класс
+//семейных отношений объявлением 3 - 4 конструкторов, имеющих различное количество параметров
+//и различные их типы, позволяющих инициализировать объекты различными способами.
