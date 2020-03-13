@@ -21,7 +21,7 @@ private:
         int wage;       //wage-заработная плата
         int spending;   //spending-трата
     public:
-        dohod(int wg=8, int spnd=8)
+        dohod(int wg=0, int spnd=0)
         {
             wage=wg;
             spending=spnd;
@@ -42,6 +42,8 @@ private:
 public:
 
     Family(string l="", string f="", string m="", int a=0, string sx="", string stat="");
+    Family(string f, int a);
+    Family(string l, string f, int a, string stat);
     void vvod();
     void vivod() const;
 };
@@ -53,6 +55,18 @@ Family::Family(string l, string f, string m, int a, string sx, string stat)
     middleName=m;
     age=a;
     sex=sx;
+    status=stat;
+}
+Family::Family(string f, int a)
+{
+    firstName=f;
+    age=a;
+}
+Family::Family(string l, string f, int a, string stat)
+{
+    lastName=l;
+    firstName=f;
+    age=a;
     status=stat;
 }
 void Family::vvod()
@@ -130,7 +144,7 @@ void funcWithClass()
 int main()
 {
     funcWithClass();
-    Family test;
+    Family test("Ivan", 20);
 //    test.vvod(); cout<<"\nВведенные данные:\n";
     test.vivod(); cout<<"\n";
 
